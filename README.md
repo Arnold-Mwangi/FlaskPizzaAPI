@@ -20,7 +20,7 @@ To get started with FlaskPizzaAPI, follow these installation steps. We recommend
 ### Step 1: Clone the Repository
 
 ```shell
-git clone <repository_url>
+git clone https://github.com/Arnold-Mwangi/FlaskPizzaAPI.git
 
 ```
 ###step 3: Create a Virtual Environment
