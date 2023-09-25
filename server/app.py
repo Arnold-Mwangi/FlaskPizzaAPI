@@ -37,7 +37,6 @@ class RestaurantsByID(Resource):
         restaurant = Restaurant.query.get(id)
 
         if restaurant is None:
-        # Return an error response indicating that the restaurant was not found
             response_dict = {
                 "message": f'Restaurant of id {id} not found',
             }
@@ -61,8 +60,56 @@ class RestaurantsByID(Resource):
         }
         return make_response(jsonify(response_dict),200)
 
+
+class Pizzas(Resource):
+    def get(self):
+        pizzas = [pizza.to_dict() for pizza in Pizza.query.all()]
+
+        return make_response(jsonify(pizzas), 200)
+
+    def post(self):
+        data = request.get_json()
+        new_pizza = Pizza(
+            name = data.get("name"),
+            ingredients = data.get("ingredients")
+        )
+
+        db.session.add(new_pizza)
+        db.session.commit()
+
+        response_dict = new_pizza.to_dict()
+
+        response = make_response(
+            response_dict,
+            200
+        )
+        return response
+
+
+class ResaturantPizzas(Resource):
+    def post(self):
+        data = request.get_json()
+        new_pizza = []
+        new_restaurant_pizza =RestaurantPizza(
+            price = data.get("price"),
+            pizza_id = data.get("pizza_id"),
+            restaurant_id = data.get("restaurant_id")
+        )
+        db.session.add(new_restaurant_pizza)
+        db.session.commit()
+
+        response_dict = new_restaurant_pizza.to_dict()
+
+        response = make_response(
+                response_dict,
+                200
+        )
+        return response
+
 api.add_resource(Restaurants, '/restaurants')
 api.add_resource(RestaurantsByID, '/restaurants/<int:id>')
+api.add_resource(Pizzas, '/pizzas')
+api.add_resource(ResaturantPizzas, '/restaurants_pizza')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
