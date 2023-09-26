@@ -22,16 +22,16 @@ pizza_data = [
 # Function to generate fake data for restaurants
 def generate_restaurant():
     return Restaurant(
-        name=fake.company(),  # Generate random company names as restaurant names
+        name=fake.company(),  
         address=fake.address(),
     )
 
-# Function to generate fake data for restaurant-pizza relationships
+
 def generate_restaurant_pizza(restaurant, pizza):
     return RestaurantPizza(
         restaurant=restaurant,
         pizza=pizza,
-        price=fake.random_int(min=1, max=30),  # Random price between 5 and 20
+        price=fake.random_int(min=1, max=30),  
     )
 
 if __name__ == '__main__':
