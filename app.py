@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from flask import Flask, jsonify, request, make_response
+from flask import Flask, jsonify, request, make_response, url_for, redirect
 from flask_migrate import Migrate
 from flask_restful import Api, Resource
 
@@ -18,8 +18,13 @@ api = Api(app)
 
 @app.route('/')
 def home():
-    response_dict = {"message": "Welcome to Pizza Inn"}
-    return make_response(jsonify(response_dict), 200)
+    response_dict = {
+        "message": "Welcome to Pizza Inn",
+        "restaurants":'/restaurants',
+        "pizzas":'/pizzas'
+    }
+
+    return make_response(response_dict, 200)
 
 class Restaurants(Resource):
 
